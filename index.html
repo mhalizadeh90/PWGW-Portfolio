@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PWGW Portfolio - Team Showcase</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            color: white;
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 40px;
+            padding: 40px 20px;
+            justify-items: center;
+        }
+
+        .team-member-circle {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .team-member-circle:hover {
+            transform: scale(1.1);
+        }
+
+        .circle-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .team-member-circle:hover .circle-image {
+            box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+        }
+
+        .circle-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: rgba(102, 126, 234, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+        }
+
+        .team-member-circle:hover .circle-overlay {
+            opacity: 1;
+        }
+
+        .member-name {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: 600;
+            color: white;
+            font-size: 1.1em;
+        }
+
+        .profiles-section {
+            background: white;
+            border-radius: 20px;
+            margin: 40px 0;
+            padding: 60px 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .member-profile {
+            padding: 60px 0;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .member-profile:last-child {
+            border-bottom: none;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #667eea;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .profile-info h2 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+
+        .profile-info .role {
+            color: #764ba2;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        .bio {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .projects h3 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .project-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+
+        .project-card h4 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .project-card p {
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: white;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            .team-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                gap: 30px;
+            }
+
+            .team-member-circle {
+                width: 120px;
+                height: 120px;
+            }
+
+            .profiles-section {
+                padding: 40px 20px;
+            }
+
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>PWGW Portfolio</h1>
+            <p>Meet Our Amazing Team</p>
+        </header>
+
+        <div class="team-grid">
+            <!-- Team Member 1 -->
+            <div class="team-member-circle" onclick="scrollToMember('member1')">
+                <img src="https://via.placeholder.com/150/667eea/ffffff?text=Member+1" alt="Member 1" class="circle-image">
+                <div class="circle-overlay">
+                    Lead Developer
+                </div>
+                <div class="member-name">Alex Johnson</div>
+            </div>
+
+            <!-- Team Member 2 -->
+            <div class="team-member-circle" onclick="scrollToMember('member2')">
+                <img src="https://via.placeholder.com/150/764ba2/ffffff?text=Member+2" alt="Member 2" class="circle-image">
+                <div class="circle-overlay">
+                    UI/UX Designer
+                </div>
+                <div class="member-name">Sarah Smith</div>
+            </div>
+
+            <!-- Team Member 3 -->
+            <div class="team-member-circle" onclick="scrollToMember('member3')">
+                <img src="https://via.placeholder.com/150/f093fb/ffffff?text=Member+3" alt="Member 3" class="circle-image">
+                <div class="circle-overlay">
+                    Backend Developer
+                </div>
+                <div class="member-name">Michael Chen</div>
+            </div>
+
+            <!-- Team Member 4 -->
+            <div class="team-member-circle" onclick="scrollToMember('member4')">
+                <img src="https://via.placeholder.com/150/4facfe/ffffff?text=Member+4" alt="Member 4" class="circle-image">
+                <div class="circle-overlay">
+                    Data Scientist
+                </div>
+                <div class="member-name">Emily Davis</div>
+            </div>
+
+            <!-- Team Member 5 -->
+            <div class="team-member-circle" onclick="scrollToMember('member5')">
+                <img src="https://via.placeholder.com/150/00f2fe/ffffff?text=Member+5" alt="Member 5" class="circle-image">
+                <div class="circle-overlay">
+                    Product Manager
+                </div>
+                <div class="member-name">David Wilson</div>
+            </div>
+
+            <!-- Team Member 6 -->
+            <div class="team-member-circle" onclick="scrollToMember('member6')">
+                <img src="https://via.placeholder.com/150/43e97b/ffffff?text=Member+6" alt="Member 6" class="circle-image">
+                <div class="circle-overlay">
+                    DevOps Engineer
+                </div>
+                <div class="member-name">Lisa Martinez</div>
+            </div>
+
+            <!-- Team Member 7 -->
+            <div class="team-member-circle" onclick="scrollToMember('member7')">
+                <img src="https://via.placeholder.com/150/fa709a/ffffff?text=Member+7" alt="Member 7" class="circle-image">
+                <div class="circle-overlay">
+                    QA Engineer
+                </div>
+                <div class="member-name">James Brown</div>
+            </div>
+        </div>
+
+        <div class="profiles-section">
+            <!-- Member 1 Profile -->
+            <div class="member-profile" id="member1">
+                <div class="profile-header">
+                    <img src="https://via.placeholder.com/120/667eea/ffffff?text=AJ" alt="Alex Johnson" class="profile-image">
+                    <div class="profile-info">
+                        <h2>Alex Johnson</h2>
+                        <div class="role">Lead Developer</div>
+                    </div>
+                </div>
+                <div class="bio">
+                    Passionate full-stack developer with 8+ years of experience building scalable web applications. 
+                    Specializes in modern JavaScript frameworks and cloud architecture. Loves solving complex problems 
+                    and mentoring junior developers.
+                </div>
+                <div class="projects">
+                    <h3>Featured Projects</h3>
+                    <div class="project-grid">
+                        <div class="project-card">
+                            <h4>E-Commerce Platform</h4>
+                            <p>Built a scalable microservices architecture handling 100K+ daily users</p>
+                        </div>
+                        <div class="project-card">
+                            <h4>Real-time Chat App</h4>
+                            <p>Developed WebSocket-based chat system with React and Node.js</p>
+                        </div>
+                        <div class="project-card">
+                            <h4>API Gateway</h4>
+                            <p>Designed and implemented company-wide API gateway infrastructure</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Member 2 Profile -->
+            <div class="member-profile" id="member2">
+                <div class="profile-header">
+                    <img src="https://via.placeholder.com/120/764ba2/ffffff?text=SS" alt="Sarah Smith" class="profile-image">
+                    <div class="profile-info">
+                        <h2>Sarah Smith</h2>
+                        <div class="role">UI/UX Designer</div>
+                    </div>
+                </div>
+                <div class="bio">
+                    Creative designer with a keen eye for aesthetics and user experience. Transforms complex 
+                    requirements into intuitive, beautiful interfaces. Experienced in design systems, prototyping, 
+                    and user research.
+                </div>
+                <div class="projects">
+                    <h3>Featured Projects</h3>
+                    <div class="project-grid">
+                        <div class="project-card">
+                            <h4>Design System</h4>
+                            <p>Created comprehensive design system used across 15+ products</p>
+                        </div>
+                        <div class="project-card">
+                            <h4>Mobile App Redesign</h4>
+                            <p>Led redesign that increased user engagement by 45%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Member 3 Profile -->
+            <div class="member-profile" id="member3">
+                <div class="profile-header">
+                    <img src="https://via.placeholder.com/120/f093fb/ffffff?text=MC" alt="Michael Chen" class="profile-image">
+                    <div class="profile-info">
+                        <h2>Michael Chen</h2>
+                        <div class="role">Backend Developer</div>
+                    </div>
+                </div>
+                <div class="bio">
+                    Expert in building robust backend systems and databases. Specializes in performance optimization 
+                    and system architecture. Strong advocate for clean code and test-driven development.
+                </div>
+                <div class="projects">
+                    <h3>Featured Projects</h3>
+                    <div class="project-grid">
+                        <div class="project-card">
+                            <h4>Database Migration</h4>
+                            <p>Successfully migrated legacy database with zero downtime</p>
+                        </div>
+                        <div class="project-card">
+                            <h4>Payment System</h4>
+                            <p>Built secure payment processing system handling $10M+ annually</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Member 4 Profile -->
+            <div class="member-profile" id="member4">
+                <div class="profile-header">
+                    <img src="https://via.placeholder.com/120/4facfe/ffffff?text=ED" alt="Emily Davis" class="profile-image">
+                    <div class="profile-info">
+                        <h2>Emily Davis</h2>
+                        <div class="role">Data Scientist</div>
+                    </div>
+                </div>
+                <div class="bio">
+                    Data-driven problem solver with expertise in machine learning and statistical analysis. 
+                    Transforms raw data into actionable insights that drive business decisions.
+                </div>
+                <div class="projects">
+                    <h3>Featured Projects</h3>
+                    <div class="project-grid">
+                        <div class="project-card">
+                            <h4>Predictive Analytics</h4>
+                            <p>Developed ML models improving forecast accuracy by 30%</p>
+                        </div>
+                        <div class="project-card">
+                            <h4>Customer Segmentation</h4>
+                            <p>Created clustering algorithm for personalized marketing</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Member 5 Profile -->
+            <div class="member-profile" id="member5">
+                <div class="profile-header">
+                    <img src="https://via.placeholder.com/120/00f2fe/ffffff?text=DW" alt="David Wilson" class="profile-image">
+                    <div class="profile-info">
+                        <h2>David Wilson</h2>
+                        <div class="role">Product Manager</div>
+                    </div>
+                </div>
+                <div class="bio">
+                    Strategic thinker who bridges the gap between business goals and technical implementation. 
+                    Expert in agile methodologies and stakeholder management.
+                </div>
+                <div class="projects">
+                    <h3>Featured Projects</h3>
+                    <div class="project-grid">
+                        <div class="project-card">
+                            <h4>Product Launch</h4>
+                            <p>Led successful launch of 3 major product features</p>
+                        </div>
+                        <div class="project-card">
+                            <h4>Roadmap Planning</h4>
+                            <p>Developed 18-month product roadmap aligned with company vision</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Member 6 Profile -->
+            <div class="member-profile" id="member6">
+                <div class="profile-header">
+                    <img src="https://via.placeholder.com/120/43e97b/ffffff?text=LM" alt="Lisa Martinez" class="profile-image">
+                    <div class="profile-info">
+                        <h2>Lisa Martinez</h2>
+                        <div class="role">DevOps Engineer</div>
+                    </div>
+                </div>
+                <div class="bio">
+                    Infrastructure specialist focused on automation and reliability. Expert in CI/CD, containerization, 
+                    and cloud platforms. Passionate about building resilient systems.
+                </div>
+                <div class="projects">
+                    <h3>Featured Projects</h3>
+                    <div class="project-grid">
+                        <div class="project-card">
+                            <h4>CI/CD Pipeline</h4>
+                            <p>Automated deployment process reducing release time by 70%</p>
+                        </div>
+                        <div class="project-card">
+                            <h4>Cloud Migration</h4>
+                            <p>Led AWS migration improving system reliability to 99.9%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Member 7 Profile -->
+            <div class="member-profile" id="member7">
+                <div class="profile-header">
+                    <img src="https://via.placeholder.com/120/fa709a/ffffff?text=JB" alt="James Brown" class="profile-image">
+                    <div class="profile-info">
+                        <h2>James Brown</h2>
+                        <div class="role">QA Engineer</div>
+                    </div>
+                </div>
+                <div class="bio">
+                    Quality advocate ensuring every release meets the highest standards. Experienced in both 
+                    manual and automated testing. Strong believer in shift-left testing practices.
+                </div>
+                <div class="projects">
+                    <h3>Featured Projects</h3>
+                    <div class="project-grid">
+                        <div class="project-card">
+                            <h4>Test Automation</h4>
+                            <p>Built comprehensive test suite covering 85% of codebase</p>
+                        </div>
+                        <div class="project-card">
+                            <h4>Performance Testing</h4>
+                            <p>Identified and resolved critical bottlenecks improving speed by 40%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2024 PWGW Portfolio. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        function scrollToMember(memberId) {
+            const element = document.getElementById(memberId);
+            const yOffset = -20;
+            const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            
+            window.scrollTo({
+                top: y,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>
