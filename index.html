@@ -42,12 +42,12 @@
             opacity: 0.9;
         }
 
-        .team-grid {
+       .team-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            row-gap: 15%;
+            row-gap: 80px;
             column-gap: 10%;
-            padding-bottom: 10%;
+            padding-bottom: 80px;
             justify-items: center;
             justify-content: center;
         }
@@ -58,6 +58,7 @@
             height: 200px;
             cursor: pointer;
             transition: transform 0.3s ease;
+            margin-bottom: 40px;
         }
 
         .team-member-circle:hover {
@@ -106,7 +107,7 @@
 
         .member-name {
             text-align: center;
-            margin-top: 2%;
+            margin-top: 10px;
             font-weight: 600;
             color: white;
             font-size: 1.1em;
@@ -212,13 +213,14 @@
             }
 
             .team-grid {
-                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-                gap: 30px;
+                row-gap: 60px;
+                padding-bottom: 60px;
             }
 
             .team-member-circle {
-                width: 120px;
-                height: 120px;
+                width: 150px;
+                height: 150px;
+                margin-bottom: 35px;
             }
 
             .profiles-section {
@@ -228,6 +230,14 @@
             .profile-header {
                 flex-direction: column;
                 text-align: center;
+            }
+
+            .profile-info h2 {
+                font-size: 1.5em;
+            }
+
+            .project-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
